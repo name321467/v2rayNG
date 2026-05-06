@@ -402,6 +402,7 @@
     <string name="title_webdav_user">Username</string>
     <string name="title_webdav_pass">Password</string>
     <string name="title_webdav_remote_path">Remote directory (optional)</string>
+    <string name="sub_setting_x_hwid" translatable="false">X-hwid</string>
 
     <string-array name="share_method">
         <item>QRcode</item>

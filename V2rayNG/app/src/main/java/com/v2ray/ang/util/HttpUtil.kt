@@ -150,6 +150,7 @@ object HttpUtil {
     fun getUrlContentWithUserAgent(
         url: String?,
         userAgent: String?,
+        hwid: String? = null,
         timeout: Int = 15000,
         httpPort: Int = 0,
         proxyUsername: String? = null,
@@ -172,6 +173,10 @@ object HttpUtil {
                 .get()
                 .header("User-agent", finalUserAgent)
                 .header("Connection", "close")
+
+            if (!hwid.isNullOrBlank()) {
+                requestBuilder.header("X-hwid", hwid)
+            }
 
             applyEmbeddedBasicAuthHeader(currentUrl, requestBuilder)
 

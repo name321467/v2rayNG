@@ -530,21 +530,22 @@ object AngConfigManager {
             }
             LogUtil.i(AppConfig.TAG, url)
             val userAgent = it.subscription.userAgent
+            val hwid = it.subscription.hwid
             val proxyUsername = SettingsManager.getSocksUsername()
             val proxyPassword = SettingsManager.getSocksPassword()
 
             var configText = try {
                 val httpPort = SettingsManager.getHttpPort()
-                HttpUtil.getUrlContentWithUserAgent(url, userAgent, 15000, httpPort, proxyUsername, proxyPassword)
+                HttpUtil.getUrlContentWithUserAgent(url, userAgent, hwid, 15000, httpPort, proxyUsername, proxyPassword)
             } catch (e: Exception) {
                 LogUtil.e(AppConfig.ANG_PACKAGE, "Update subscription: proxy not ready or other error", e)
                 ""
             }
             if (configText.isEmpty()) {
                 configText = try {
-                    HttpUtil.getUrlContentWithUserAgent(url, userAgent)
+                    HttpUtil.getUrlContentWithUserAgent(url, userAgent, hwid)
                 } catch (e: Exception) {
-                    LogUtil.e(AppConfig.TAG, "Update subscription: Failed to get URL content with user agent", e)
+                    LogUtil.e(AppConfig.TAG, "Update subscription: Failed to get URL content with user agent / hwid", e)
                     ""
                 }
             }
